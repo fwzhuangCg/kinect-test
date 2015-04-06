@@ -1,7 +1,9 @@
-#include "opencv2/videoio/videoio.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
+#include <string>
+#include <sstream>
 
 using namespace cv;
 using namespace std;
@@ -63,13 +65,15 @@ int main(int argc, char* argv[])
     }
     else
     {
-        minKinectDistance = atof(argv[1]);
-        maxKinectDistance = atof(argv[2]);
+        stringstream arg1(argv[1]);
+        stringstream arg2(argv[2]);
+        arg1 >> minKinectDistance;
+        arg2 >> maxKinectDistance;
     }
 
-    cout << "\nTry to position the Kinect between " <<
-            minKinectDistance << " & " <<
-            maxKinectDistance << " mm\n" << endl;
+    cout << "\nKinect between depth range: " <<
+            minKinectDistance << "mm - " <<
+            maxKinectDistance << "mm\n" << endl;
 
 
     // open the Kinect camera
@@ -91,7 +95,7 @@ int main(int argc, char* argv[])
 
     if (minKinectDistance < 800.0)
     {
-        cout << "Kinect must be at least 80 cm away to work properly";
+        cout << "Kinect must be at least 800mm away to work properly";
         return(-1);
     }
 
@@ -108,7 +112,6 @@ int main(int argc, char* argv[])
 
     double tickStart = (double)getTickCount();
     double tickEnd = tickStart;
-
 
     double frames_per_sec = 20.0;
     double frameDuration_ms = 1000 / frames_per_sec;
@@ -158,15 +161,6 @@ int main(int argc, char* argv[])
 
         // end timer
         tickEnd = (double)getTickCount();
-
-
-
-        //        cout << tickStart << endl;
-        //        cout << tickEnd << endl;
-        //        cout << loopDuration << endl;
-        //        printFPS(tickStart, tickEnd);
-
-
 
     }
 
