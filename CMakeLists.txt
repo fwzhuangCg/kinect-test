@@ -11,7 +11,7 @@ add_compile_options(-std=c++11)
 find_package(OpenCV REQUIRED)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    include_directories(${OpenCV_INCLUDE_DIRS} $ENV{OpenCV_DIR}/../../../include)
+    include_directories(${OpenCV_INCLUDE_DIRS})
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     include_directories(${OpenCV_INCLUDE_DIRS})
 endif()
